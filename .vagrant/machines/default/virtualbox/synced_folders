@@ -1,1 +1,0 @@
-{"virtualbox":{"/home/vagrant/blk-lst":{"type":null,"mount_options":[],"guestpath":"/home/vagrant/blk-lst","hostpath":"/Users/silafm/Sites/blk-lst","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/silafm/Sites/blk-lst","disabled":false,"__vagrantfile":true}}}
