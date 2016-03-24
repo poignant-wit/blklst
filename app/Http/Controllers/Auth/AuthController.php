@@ -78,40 +78,30 @@ class AuthController extends Controller
     public function register(Request $request)
     {
 
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|min:6|confirmed',
+        ]);
 
-        Mail::send('auth.emails.welcome', ['name' => 'nnnnn'], function($message){
-            $message->from('blklst.dev@gmail.com', 'TEST');
-            $message->to('silaprod@gmail.com')->subject('TEST');
+        $user = new User();
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = bcrypt($request->input('password'));
+        $user->confirmation_code = str_random(30);
+        $user->save();
+
+
+        Mail::send('auth.emails.confirm', ['user' => $user], function($message){
+            $message->from('blklst.dev@gmail.com', 'Blclst service');
+            $message->to('silaprod@gmail.com')->subject('Welcome to Blklst service');
         });
 
-        return "SEND";
-//        dd(Config::get('mail'));
-//
-//        $this->validate($request, [
-//            'name' => 'required|max:255',
-//            'email' => 'required|email|max:255|unique:users',
-//            'password' => 'required|min:6|confirmed',
-//        ]);
-//
-//        $confirmation_code = str_random(30);
-//
-//
-//
-//        User::create([
-//            'name' => $request->input('name'),
-//            'email' => $request->input('email'),
-//            'password' => bcrypt($request->input('password')),
-//            'confirmation_code' => $confirmation_code
-//        ]);
-//
-//        Mail::send('email.verify', $confirmation_code, function($message) {
-//            $message->to(Input::get('email'), Input::get('username'))
-//                ->subject('Verify your email address');
-//        });
 
+    }
 
-
-
+    public function confirmEmail($confirm_code){
+        dd($confirm_code);
     }
 
 
