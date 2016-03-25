@@ -34,18 +34,31 @@ class AuthController extends Controller
     ];
 
 
+    /**
+     * AuthController constructor.
+     */
     public function __construct()
     {
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
     }
 
 
+    /**
+     * @param array $data
+     * @param array $rules
+     * @return mixed
+     */
     protected function validator(array $data, array $rules)
     {
         return Validator::make($data, $rules);
     }
 
 
+    /**
+     * @param Request $request
+     * @param $rules
+     * @throws \Illuminate\Foundation\Validation\ValidationException
+     */
     public function validateRequest(Request $request, $rules)
     {
         $validator = $this->validator($request->all(), $rules);
@@ -58,6 +71,9 @@ class AuthController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     */
     public function register(Request $request)
     {
         $this->validateRequest($request, $this->register_rules);
@@ -77,6 +93,10 @@ class AuthController extends Controller
 
     }
 
+    /**
+     * @param $confirmation_code
+     * @return \Illuminate\Http\RedirectResponse|string
+     */
     public function confirmEmail($confirmation_code)
     {
 
@@ -94,6 +114,10 @@ class AuthController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+     */
     public function login(Request $request)
     {
 
@@ -121,11 +145,19 @@ class AuthController extends Controller
     }
 
 
+    /**
+     * @param $provider
+     * @return mixed
+     */
     public function redirectToProvider($provider)
     {
         return Socialite::driver($provider)->redirect();
     }
 
+    /**
+     * @param $provider
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function handleProviderCallback($provider)
     {
         $user = Socialite::driver('linkedin')->user();
@@ -162,7 +194,8 @@ class AuthController extends Controller
 
         auth()->login($user_auth, true);
         return redirect()->route('home');
-
     }
+
+}
 
 
