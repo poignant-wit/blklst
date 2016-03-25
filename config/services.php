@@ -35,4 +35,10 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'linkedin' => [
+        'client_id' => '77j8ge7fdxw3ru',
+        'client_secret' => 'prIN8g8LtfdTXoYs',
+        'redirect' => 'http://homestead.app/auth/linkedin/callback',
+    ],
+
 ];

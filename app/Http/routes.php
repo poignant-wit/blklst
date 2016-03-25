@@ -13,15 +13,21 @@
 
 Route::group(['middleware' => ['web']], function () {
 
-    Route::get('/', function () {
-        return view('welcome');
-    });
+//    Route::get('/', function () {
+//        return view('welcome');
+//    });
 
 });
 
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
-    Route::get('/home', 'HomeController@index');
+    Route::get('/', [
+       'uses' => 'HomeController@index',
+       'as' => 'home',
+    ]);
     Route::get('register/confirm/{confirm_code}', 'Auth\AuthController@confirmEmail');
+
+    Route::get('auth/{provider}', 'Auth\AuthController@redirectToProvider');
+    Route::get('auth/{provider}/callback', 'Auth\AuthController@handleProviderCallback');
 });

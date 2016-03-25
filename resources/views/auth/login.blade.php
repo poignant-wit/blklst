@@ -64,9 +64,9 @@
                     <div class="col-md-12 text-center">
 
 
-                        <button class="btn btn-primary">Войти через
+                        <a class="btn btn-primary" href="{{ url('auth/linkedin') }}">Войти через
                             <i class="fa fa-btn fa-linkedin"></i>
-                        </button>
+                        </a>
                     </div>
 
 
