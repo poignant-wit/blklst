@@ -30,4 +30,21 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('auth/{provider}', 'Auth\AuthController@redirectToProvider');
     Route::get('auth/{provider}/callback', 'Auth\AuthController@handleProviderCallback');
+
+    Route::get('candidate/create', [
+        'uses' => 'CandidateController@create',
+        'as' => 'candidate.create',
+    ]);
+    Route::post('candidate', [
+        'uses' => 'CandidateController@store',
+        'as' => 'candidate.store',
+    ]);
+    Route::get('candidate/{id}', [
+        'uses' => 'CandidateController@show',
+        'as' => 'candidate.show',
+    ]);
+    Route::get('search', [
+        'uses' => 'SearchController@results',
+        'as' => 'search.results',
+    ]);
 });

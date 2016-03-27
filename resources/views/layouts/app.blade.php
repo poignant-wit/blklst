@@ -49,7 +49,7 @@
                 <ul class="nav navbar-nav">
 
                     @if (!Auth::guest())
-                        <li><a href="{{ url('/login') }}">Add</a></li>
+                        <li><a href="{{ url('/candidate/create') }}">Add</a></li>
 
                     @endif
                 </ul>

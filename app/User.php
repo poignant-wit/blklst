@@ -23,4 +23,37 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function roles(){
+        return $this->belongsToMany(Role::class,'user_role');
+    }
+
+    public function hasRole($role){
+//        $role = 'admin';
+        if (is_string($role)){
+
+            return $this->roles->contains('role_name', $role);
+
+
+        }
+//        dd($this->roles);
+
+//        dd($this->commentsTarget);
+        return (bool) $role->intersect($this->roles)->count();
+    }
+
+    public function assign($role){
+        if (is_string($role)){
+            return $this->roles()->save(Role::where('name',$role)->firstOrFail());
+        }
+        return $this->roles()->save($role);
+    }
+
+    public function commentsOwner(){
+        return $this->hasMany(Comment::class, 'owner_id');
+    }
+
+    public function commentsTarget(){
+        return $this->hasMany(Comment::class, 'target_id');
+    }
 }

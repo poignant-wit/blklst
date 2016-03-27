@@ -84,6 +84,7 @@ class AuthController extends Controller
         $user->password = bcrypt($request->input('password'));
         $user->confirmation_code = str_random(30);
         $user->save();
+        $user->assign('user');
 
         Mail::send('auth.emails.confirm', ['user' => $user], function ($message) use ($user) {
             $message->from('blklst.dev@gmail.com', 'Blclst service');
@@ -175,6 +176,7 @@ class AuthController extends Controller
                 $user_new->email = $user->email;
                 $user_new->confirmed = 1;
                 $user_new->save();
+                $user_new->assign('user');
 
                 $user_new_social = new Social();
                 $user_new_social->social_id = $user->id;
