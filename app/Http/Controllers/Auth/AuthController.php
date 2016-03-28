@@ -84,7 +84,7 @@ class AuthController extends Controller
         $user->password = bcrypt($request->input('password'));
         $user->confirmation_code = str_random(30);
         $user->save();
-        $user->assign('user');
+        $user->assign('recruiter');
 
         Mail::send('auth.emails.confirm', ['user' => $user], function ($message) use ($user) {
             $message->from('blklst.dev@gmail.com', 'Blclst service');

@@ -47,6 +47,7 @@ class CandidateController extends Controller
     }
 
     public function store(Request $request){
+
         $this->validateRequest($request, $this->candidate_rules);
         $user = new User();
         $user->name = $request->input('name');

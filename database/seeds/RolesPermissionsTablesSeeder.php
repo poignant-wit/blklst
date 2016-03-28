@@ -17,7 +17,7 @@ class RolesPermissionsTablesSeeder extends Seeder
         ]);
 
         DB::table('roles')->insert([
-            'name' => 'user',
+            'name' => 'candidate',
             'label' => 'User of site',
         ]);
 
@@ -53,7 +53,7 @@ class RolesPermissionsTablesSeeder extends Seeder
         ]);
 
         DB::table('role_permissions')->insert([
-            'role_id' => '2',
+            'role_id' => '3',
             'permission_id' => '1',
         ]);
 
@@ -61,6 +61,8 @@ class RolesPermissionsTablesSeeder extends Seeder
             'user_id' => '1',
             'role_id' => '1',
         ]);
+
+
 
 
 

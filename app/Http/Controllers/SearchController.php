@@ -19,17 +19,13 @@ class SearchController extends Controller
             ->orWhere('name', 'LIKE', '%' . $query . '%')
             ->join('user_role', 'users.id', '=', 'user_role.user_id');
 
+
+
         $s = $sub_query->toSql();
         $users = DB::table(DB::raw("($s) as a"))
             ->mergeBindings($sub_query)
-//            ->where('confirmed', '=', 1)
             ->where('role_id', '=', Role::where('name', 'candidate')->first()->id)
             ->get();
-
-
-//        dd(count($users));
-
-
 
             return view('welcome')
                 ->with('users', $users);

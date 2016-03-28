@@ -26,8 +26,9 @@
 
         <h3 class="text-center">Комментарии</h3>
         <div class="col-md-4 col-md-offset-4">
-            <form class="form-horizontal" role="form" method="POST" action="{{ url('/candidate') }}">
+            <form class="form-horizontal" role="form" method="POST" action="{{ url('/comment') }}">
                 {!! csrf_field() !!}
+                <input type="hidden" value="{{$candidate->id}}" name="target_id">
                 <div class="form-group{{ $errors->has('comment') ? ' has-error' : '' }}">
                     <textarea class="form-control" rows="5" name="comment" value="{{ old('comment') }}"></textarea>
                     @if ($errors->has('name'))

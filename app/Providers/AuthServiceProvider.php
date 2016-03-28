@@ -29,7 +29,7 @@ class AuthServiceProvider extends ServiceProvider
 
        foreach ($this->getPermissions() as $permission){
            $gate->define($permission->name, function($user) use ($permission){
-//               dd($user);
+
                return $user->hasRole($permission->roles);
            });
        }
@@ -38,7 +38,7 @@ class AuthServiceProvider extends ServiceProvider
 
     protected function getPermissions()
     {
-
         return Permission::with('roles')->get();
     }
 }
+

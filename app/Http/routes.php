@@ -47,4 +47,13 @@ Route::group(['middleware' => 'web'], function () {
         'uses' => 'SearchController@results',
         'as' => 'search.results',
     ]);
+
+    Route::post('comment', [
+        'uses' => 'CommentController@store',
+        'as' => 'search.results',
+        'middleware' => 'auth'
+    ]);
+
+
+
 });
