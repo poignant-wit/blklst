@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Sign Up Confirmation</title>
+    <title>Валидация регистрации</title>
 </head>
 <body>
-<h1>Thanks for signing up!</h1>
+<h1>Спасибо за регистрацию!</h1>
 
 <p>
-    We just need you to <a href='{{ url("register/confirm/{$user->confirmation_code}") }}'>confirm your email address</a> real quick!
+    Нам необходимо <a href='{{ url("register/confirm/{$user->confirmation_code}") }}'>подтвердить Ваш email</a>!
 </p>
 </body>
 </html>

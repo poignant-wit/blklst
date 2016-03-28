@@ -90,7 +90,8 @@ class AuthController extends Controller
             $message->from('blklst.dev@gmail.com', 'Blclst service');
             $message->to($user->email)->subject('Welcome to Blklst service');
         });
-//        return redirect()->route('home'); //TODO MESSAGES PAGE
+        return redirect()->route('home')
+            ->with('info', 'Проверьте почту'); //TODO MESSAGES PAGE
 
     }
 
@@ -185,9 +186,9 @@ class AuthController extends Controller
 
                 $user_new_social->save();
 
-                // TODO Add role
-//                $role = Role::whereName('user')->first();
-//                $user_new->assignRole($role);
+
+                $role = Role::whereName('recruiter')->first();
+                $user_new->assign($role);
                 $user_auth = $user_new;
             } else {
                 $user_auth = $user_same_social_id->user;

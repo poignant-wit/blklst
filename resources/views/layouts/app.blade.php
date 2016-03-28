@@ -76,6 +76,7 @@
         </div>
     </nav>
 
+    @include('layouts.partials.alert')
     @yield('content')
 
     <!-- JavaScripts -->

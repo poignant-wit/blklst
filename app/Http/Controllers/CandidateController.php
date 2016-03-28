@@ -64,7 +64,7 @@ class CandidateController extends Controller
 
 
         $user->assign(Role::where('name', 'candidate')->first());
-        return view('candidate.new');
+        return view('candidate.new')->with('info', 'Вы успешно добавили кандидата');
     }
 
     public function show($id){
@@ -76,35 +76,18 @@ class CandidateController extends Controller
 
 
         if (isset($candidate)){
-
-//            auth()->loginUsingid(6);
-
         if (Gate::allows('show_comments', Auth::user())){
-
-//            dd("sdfsdf");
-
-
                 $comments = $candidate->commentsTarget()
                     ->join('users', 'comments.owner_id', '=', 'users.id')
                     ->get();
-
-//                dd($comments);
-//
-                return view('user.details')
+             return view('user.details')
                     ->with('candidate', $candidate)
                     ->with('comments', $comments);
             }
-//            dd('sdsdsd');
-//            $comments = Comment::where('target_id', $candidate->id)
-//                ->get();
-
-
             return view('user.details')
                 ->with('candidate', $candidate);
         }
-//
-
-        return "NO USER";
+      return view('welcome')->with('info_danger', 'Нет такого кандидата');
 
 
     }

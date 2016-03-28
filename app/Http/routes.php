@@ -54,6 +54,13 @@ Route::group(['middleware' => 'web'], function () {
         'middleware' => 'auth'
     ]);
 
+    Route::get('admin', [
+        'uses' => 'AdminController@index',
+        'as' => 'admin.panel',
+        'middleware' => 'auth'
+    ]);
+
+
 
 
 });
