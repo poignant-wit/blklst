@@ -29,16 +29,9 @@ class User extends Authenticatable
     }
 
     public function hasRole($role){
-//        $role = 'admin';
         if (is_string($role)){
-
             return $this->roles->contains('name', $role);
-
-
         }
-//        dd($this->roles);
-
-//        dd($this->commentsTarget);
         return (bool) $role->intersect($this->roles)->count();
     }
 

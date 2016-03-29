@@ -21,7 +21,6 @@ class AdminController extends Controller
                 ->join('roles', 'role_id', '=', 'roles.id')
                 ->get();
 
-//            dd($users);
             return view('admin.main')
                 ->with('users', $users);
         }
@@ -35,9 +34,17 @@ class AdminController extends Controller
 
             $user = User::where('id','=', $id)->first();
             if (isset($user) && $user->hasRole('candidate')){
-                return "CANDIDATE";
+
+                $comments = $user->commentsTarget()->get();
+                return view('admin/details')
+                    ->with('user', $user)
+                    ->with('comments', $comments);
             }elseif(isset($user) && $user->hasRole('recruiter')){
-                return "RECRUITER";
+
+                $comments = $user->commentsOwner()->get();
+                return view('admin/details')
+                    ->with('user', $user)
+                    ->with('comments', $comments);
             }else{
                 return "NO FOUND";
             }
