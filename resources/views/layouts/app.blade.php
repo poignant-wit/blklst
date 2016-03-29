@@ -9,7 +9,7 @@
 
     <!-- Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 
     <!-- Styles -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -17,7 +17,7 @@
 
     <style>
         body {
-            font-family: 'Lato';
+            font-family: 'Open Sans', sans-serif;
         }
 
         .fa-btn {
@@ -49,7 +49,7 @@
                 <ul class="nav navbar-nav">
 
                     @if (!Auth::guest())
-                        <li><a href="{{ url('/candidate/create') }}">Add</a></li>
+                        <li><a href="{{ url('/candidate/create') }}">Новый</a></li>
 
                     @endif
                 </ul>
@@ -58,8 +58,8 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Login</a></li>
-                        <li><a href="{{ url('/register') }}">Register</a></li>
+                        <li><a href="{{ url('/login') }}">Вход</a></li>
+                        <li><a href="{{ url('/register') }}">Регистрация</a></li>
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

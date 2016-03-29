@@ -14,6 +14,12 @@ class SearchController extends Controller
     public function results(Request $request)
     {
         $query = $request->input('query');
+
+//        dd($query);
+        if (preg_match("/^[\s]*$/", $query)){
+        return redirect()->back();
+    }
+
         $sub_query = DB::table('users')
             ->where('email', 'LIKE', '%' . $query . '%')
             ->orWhere('name', 'LIKE', '%' . $query . '%')

@@ -7,6 +7,7 @@ use App\Role;
 use App\User;
 use Auth;
 use Gate;
+use DB;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -43,7 +44,10 @@ class CandidateController extends Controller
     }
 
     public function create(){
-        return view('candidate.new');
+
+        $ratings = DB::table('ratings')->get();
+        return view('candidate.new')
+            ->with('ratings', $ratings);
     }
 
     public function store(Request $request){
@@ -60,10 +64,13 @@ class CandidateController extends Controller
         $comment->owner_id = Auth::user()->id;
         $comment->target_id = $user->id;
         $comment->body = $request->input('comment');
+        $comment->rating = $request->input('rating');
         $comment->save();
 
 
         $user->assign(Role::where('name', 'candidate')->first());
+
+
         return view('candidate.new')->with('info', 'Вы успешно добавили кандидата');
     }
 

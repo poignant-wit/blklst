@@ -56,18 +56,42 @@
                                 </div>
                             </div>
 
-                            <div class="row">
-                            <div class="col-md-6 col-md-offset-4">
 
 
-                           <div class="btn-group" role="group" aria-label="Basic example">
-                                <button type="button" class="btn btn-secondary">Left</button>
-                                <button type="button" class="btn btn-secondary">Middle</button>
-                                <button type="button" class="btn btn-secondary">Right</button>
-                            </div>
-                            </div>
-                            </div>
+
+
+                           {{--<div class="btn-group" role="group" aria-label="Basic example">--}}
+                                {{--<button type="button" class="btn btn-secondary">Left</button>--}}
+                                {{--<button type="button" class="btn btn-secondary">Middle</button>--}}
+                                {{--<button type="button" class="btn btn-secondary">Right</button>--}}
+                            {{--</div>--}}
+                            {{--</div>--}}
+                            {{--</div>--}}
+
+
+
+
                             <br>
+
+                            @if(isset($ratings))
+
+                            <div class="form-group">
+                                <div class="col-md-3 col-md-offset-4">
+
+
+                                    <select class="form-control" name="rating">
+
+                                        @foreach($ratings as $rating)
+                                        <option value="{{ $rating->id }}">{{ $rating->name }}</option>
+
+
+                                            @endforeach
+                                    </select>
+                       </div>
+                            </div>
+
+                            @endif
+
                             <div class="form-group{{ $errors->has('comment') ? ' has-error' : '' }}">
                                 <label class="col-md-4 control-label">Comment</label>
 

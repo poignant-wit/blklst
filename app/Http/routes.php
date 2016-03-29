@@ -54,11 +54,27 @@ Route::group(['middleware' => 'web'], function () {
         'middleware' => 'auth'
     ]);
 
-    Route::get('admin', [
-        'uses' => 'AdminController@index',
-        'as' => 'admin.panel',
+    Route::group(['prefix' => 'admin',
         'middleware' => 'auth'
-    ]);
+    ], function(){
+
+        Route::get('/', [
+            'uses' => 'AdminController@index',
+            'as' => 'admin.main',
+
+        ]);
+
+        Route::get('user/{id}', [
+            'uses' => 'AdminController@user',
+            'as' => 'admin.user',
+
+        ]);
+
+    });
+
+
+
+
 
 
 
