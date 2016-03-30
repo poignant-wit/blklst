@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Role;
 use Config;
 use Auth;
 
@@ -166,10 +167,13 @@ class AuthController extends Controller
         $user_auth = null;
         $user_check = User::where('email', '=', $user->email)->first();
 
+
         if (!empty($user_check)) {
             $user_auth = $user_check;
         } else {
             $user_same_social_id = Social::where('social_id', '=', $user->id)->where('provider', '=', $provider)->first();
+
+
 
             if (empty($user_same_social_id)) {
                 $user_new = new User();
@@ -177,7 +181,10 @@ class AuthController extends Controller
                 $user_new->email = $user->email;
                 $user_new->confirmed = 1;
                 $user_new->save();
-                $user_new->assign('user');
+                $user_new->assign('recruiter');
+
+
+
 
                 $user_new_social = new Social();
                 $user_new_social->social_id = $user->id;
@@ -187,8 +194,8 @@ class AuthController extends Controller
                 $user_new_social->save();
 
 
-                $role = Role::whereName('recruiter')->first();
-                $user_new->assign($role);
+//                $role = Role::whereName('recruiter')->first();
+//                $user_new->assign($role);
                 $user_auth = $user_new;
             } else {
                 $user_auth = $user_same_social_id->user;
