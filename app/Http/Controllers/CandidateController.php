@@ -17,7 +17,7 @@ class CandidateController extends Controller
 {
     private $candidate_rules = [
         'name' => 'required',
-        'email' => 'required',
+        'email' => 'required|email|max:255|unique:users',
         'comment' => 'required',
     ];
 
