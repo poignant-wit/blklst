@@ -13,6 +13,8 @@ class AdminController extends Controller
 {
     public function index(){
 
+
+
         if (Auth::user()->hasRole('admin')){
 
             $users = DB::table('users')
