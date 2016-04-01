@@ -1,3 +1,7 @@
+
+
+
+<li class="list-group-item">
 <div class="media">
     <div class="media-left">
         <a href="">
@@ -9,3 +13,5 @@
        {{$comment->comment_body}}
     </div>
 </div>
+
+</li>

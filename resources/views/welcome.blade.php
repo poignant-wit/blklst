@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
     <div class="container">
         <div class="row">
             <form action="{{ url('/search') }}" method="get">
@@ -12,10 +11,7 @@
                                placeholder="Введите имя или email">
                         <div class="input-group-btn">
                             <button type="submit" class="btn btn-default">Поиск</button>
-
-
                         </div>
-
                     </div>
                 </div>
             </form>
@@ -40,8 +36,5 @@
             </div>
         @endif
     @endif
-
-
-
 
 @endsection

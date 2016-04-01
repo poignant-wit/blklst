@@ -14,10 +14,12 @@
           type='text/css'>
     <!-- Styles -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     <style>
         body {
             font-family: 'Open Sans', sans-serif;
+
         }
 
         .fa-btn {
@@ -25,7 +27,10 @@
         }
     </style>
 </head>
+
+
 <body id="app-layout">
+
 <nav class="navbar navbar-inverse navbar-static-top">
     <div class="container">
         <div class="navbar-header">
@@ -77,12 +82,31 @@
         </div>
     </div>
 </nav>
+
+<div class="wrap-content">
+
 @include('layouts.partials.alert')
 @yield('content')
-        <!-- JavaScripts -->
+       <!-- JavaScripts -->
+</div>
+
+
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">Place sticky footer content here.</p>
+        </div>
+    </footer>
+
+
+
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
 {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 </body>
+
+
+
 </html>
