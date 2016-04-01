@@ -38,16 +38,33 @@
                     @endif
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-secondary">Left</button>
-                            <button type="button" class="btn btn-secondary">Middle</button>
-                            <button type="button" class="btn btn-secondary">Right</button>
+
+
+
+                    @if(isset($ratings))
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+
+
+                                <select class="form-control" name="rating">
+
+                                    @foreach($ratings as $rating)
+                                        <option value="{{ $rating->id }}">{{ $rating->name }}</option>
+
+
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
-                    </div>
+
+                    @endif
 
 
-                    <div class="col-md-4 col-md-offset-4 text-right">
+
+
+
+                    <div class="col-md-12 text-right">
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">
                                 <i class="fa fa-btn fa-sign-in"></i>Add

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\CommentStatus;
 use App\Role;
 use App\User;
 use Auth;
@@ -57,14 +58,22 @@ class CandidateController extends Controller
         $user->name = $request->input('name');
         $user->email = $request->input('email');
 
+        if($request->input('skype')) $user->skype = $request->input('skype');
         $user->confirmation_code = str_random(30);
         $user->save();
+
+
+//        DB::table('user_skype')->insert([
+//           'user_id' => $user->id,
+//            'skype' => $request->input('skype')
+//        ]);
 
         $comment = new Comment();
         $comment->owner_id = Auth::user()->id;
         $comment->target_id = $user->id;
         $comment->body = $request->input('comment');
         $comment->rating = $request->input('rating');
+        $comment->status = CommentStatus::where('name', 'waiting')->first()->id;
         $comment->save();
 
 
@@ -85,22 +94,26 @@ class CandidateController extends Controller
         if (isset($candidate)){
         if (Gate::allows('show_comments', Auth::user())){
                 $comments = $candidate->commentsTarget()
+                    ->select(
+                        'users.name as user_name',
+                        'comments.body as comment_body',
+                        'comment_status.id as comment_status_id'
+                        )
                     ->join('users', 'comments.owner_id', '=', 'users.id')
+                    ->join('comment_status', 'status', '=', 'comment_status.id')
+                    ->where('comment_status.id', '=', DB::table('comment_status')->where('name', 'enabled')->first()->id)
                     ->get();
+            $ratings = DB::table('ratings')->get();
              return view('user.details')
                     ->with('candidate', $candidate)
+                    ->with('ratings', $ratings)
                     ->with('comments', $comments);
             }
             return view('user.details')
                 ->with('candidate', $candidate);
         }
       return view('welcome')->with('info_danger', 'Нет такого кандидата');
-
-
     }
-
-
-
 
 
 }
