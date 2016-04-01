@@ -49,7 +49,8 @@
                     <li><a href="{{ url('/candidate/create') }}">Новый</a></li>
 
                 @if (Auth::user()->hasRole('admin'))
-                    <li><a href="{{ url('/admin') }}">Админка</a></li>
+                    <li><a href="{{ url('/admin') }}">Комментарии</a></li>
+                    <li><a href="{{ url('/admin/users') }}">Пользователи</a></li>
 
                 @endif
 
