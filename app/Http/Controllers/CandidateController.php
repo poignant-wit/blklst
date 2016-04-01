@@ -94,7 +94,14 @@ class CandidateController extends Controller
         if (isset($candidate)){
         if (Gate::allows('show_comments', Auth::user())){
                 $comments = $candidate->commentsTarget()
+                    ->select(
+                        'users.name as user_name',
+                        'comments.body as comment_body',
+                        'comment_status.id as comment_status_id'
+                        )
                     ->join('users', 'comments.owner_id', '=', 'users.id')
+                    ->join('comment_status', 'status', '=', 'comment_status.id')
+                    ->where('comment_status.id', '=', DB::table('comment_status')->where('name', 'enabled')->first()->id)
                     ->get();
             $ratings = DB::table('ratings')->get();
              return view('user.details')
@@ -106,12 +113,7 @@ class CandidateController extends Controller
                 ->with('candidate', $candidate);
         }
       return view('welcome')->with('info_danger', 'Нет такого кандидата');
-
-
     }
-
-
-
 
 
 }

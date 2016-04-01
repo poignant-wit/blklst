@@ -70,7 +70,25 @@ Route::group(['middleware' => 'web'], function () {
 
         ]);
 
+        Route::get('comments', [
+            'uses' => 'AdminController@getTable',
+            'as' => 'admin.comments',
+        ]);
+
+
+        Route::post('comment/change', [
+            'uses' => 'AdminController@postCommentStatus',
+            'as' => 'admin.comment.change',
+        ]);
+
+
+
+
+
+
     });
+
+
 
 
 
