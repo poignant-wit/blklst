@@ -64,6 +64,12 @@ Route::group(['middleware' => 'web'], function () {
 
         ]);
 
+        Route::get('/users', [
+            'uses' => 'AdminController@getUsersList',
+            'as' => 'admin.users',
+        ]);
+
+
         Route::get('user/{id}', [
             'uses' => 'AdminController@user',
             'as' => 'admin.user',

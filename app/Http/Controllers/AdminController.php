@@ -200,4 +200,22 @@ class AdminController extends Controller
 
     }
 
+    public function getUsersList(){
+
+        if (Auth::user()->hasRole('admin')){
+
+            $users = DB::table('users')
+                ->select('users.name as name', 'email', 'roles.name as role', 'confirmed')
+                ->join('user_role', 'users.id', '=', 'user_role.user_id')
+                ->join('roles', 'role_id', '=', 'roles.id')
+                ->get();
+
+            return view('admin.users')
+                ->with('users', $users);
+        }
+        return redirect()->route('home');
+
+
+    }
+
 }
