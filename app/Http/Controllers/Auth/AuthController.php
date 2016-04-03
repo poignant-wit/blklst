@@ -189,9 +189,17 @@ class AuthController extends Controller
      * @param $provider
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function handleProviderCallback($provider)
+    public function handleProviderCallback(Request $request, $provider)
     {
         $user = Socialite::driver('linkedin')->user();
+
+        $state = $request->get('state');
+        $request->session()->put('state',$state);
+
+        if(\Auth::check()==false){
+            session()->regenerate();
+        }
+
         $user_auth = null;
         $user_check = User::where('email', '=', $user->email)->first();
 
