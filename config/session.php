@@ -135,7 +135,8 @@ return [
     |
     */
 
-    'domain' => 'blacklistofficial.online',
+//    'domain' => 'blacklistofficial.online',
+    'domain' => null,
 
     /*
     |--------------------------------------------------------------------------
