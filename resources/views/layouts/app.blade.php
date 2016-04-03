@@ -93,7 +93,7 @@
 
     <footer class="footer">
         <div class="container">
-            <p class="text-muted">Place sticky footer content here.</p>
+            <p class="text-muted"> Отзывы отправляйте мне в скайп <a href="skype:alive2059?chat">alive2059</a></p>
         </div>
     </footer>
 

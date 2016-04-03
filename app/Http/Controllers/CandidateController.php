@@ -104,6 +104,7 @@ class CandidateController extends Controller
                     ->where('comment_status.id', '=', DB::table('comment_status')->where('name', 'enabled')->first()->id)
                     ->get();
             $ratings = DB::table('ratings')->get();
+
              return view('user.details')
                     ->with('candidate', $candidate)
                     ->with('ratings', $ratings)

@@ -84,9 +84,13 @@ $(document).ready(function () {
 
 
     });
+    $("body").css('height',$(document).height() );
+
 
 
 
 });
 
-
+$( window ).resize(function() {
+    $("body").css('height',$(document).height() );
+});

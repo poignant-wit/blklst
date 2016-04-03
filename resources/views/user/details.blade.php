@@ -36,52 +36,46 @@
                                     </span>
                         @endif
                     </div>
-                    <div class="row">
-                        @if(isset($ratings))
-
-                            <div class="form-group">
-                                <div class="col-md-3">
-                                    <select class="form-control" name="rating">
-                                        @foreach($ratings as $rating)
-                                            <option value="{{ $rating->id }}">{{ $rating->name }}</option>
+                    @if(isset($ratings))
+                        <div class="form-group pull-left">
+                            <select class="form-control" name="rating">
+                                @foreach($ratings as $rating)
+                                    <option value="{{ $rating->id }}">{{ $rating->name }}</option>
 
 
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-                        @endif
-                        <div class="col-md-12 text-right">
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-sign-in"></i>Add
-                                </button>
-                            </div>
+                                @endforeach
+                            </select>
                         </div>
+                    @endif
+                    <div class="form-group text-right pull-right">
+                       <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-btn fa-sign-in"></i>Add
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
 
-        <div class="row">
-            <div class="container">
-                {{--<ul>--}}
-                {{--@foreach($comments as $comment)--}}
-                {{--@include('user.partials.comment')--}}
-                {{--@endforeach--}}
 
-                {{--</ul>--}}
-                <ul class="list-group">
 
-                    @foreach($comments as $comment)
-                    @include('user.partials.comment')
-                    @endforeach
-                    {{--<li class="list-group-item">Cras justo odio</li>--}}
 
-                </ul>
-            </div>
+        <div class="container">
+            {{--<ul>--}}
+            {{--@foreach($comments as $comment)--}}
+            {{--@include('user.partials.comment')--}}
+            {{--@endforeach--}}
+
+            {{--</ul>--}}
+            <ul class="list-group">
+
+                @foreach($comments as $comment)
+                @include('user.partials.comment')
+                @endforeach
+                {{--<li class="list-group-item">Cras justo odio</li>--}}
+
+            </ul>
         </div>
+
 
     @endif
     @else
