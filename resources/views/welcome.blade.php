@@ -22,13 +22,14 @@
         @if(count($users) == 0)
             <hr>
             <h3 class="text-center">НИЧЕГО НЕ НАЙДЕНО</h3>
+            <p class="text-center">
+                <a href="{{url('/register')}}">Зарегистрируйся</a>, чтоб получить уведомление, когда тебя внесут в черный список
+            </p>
             <br>
         @else
             <hr>
             <h3 class="text-center">РЕЗУЛЬТАТЫ ПОИСКА</h3>
-            <p class="text-center">
-                <a href="{{url('/register')}}">Зарегистрируйся</a>, чтоб получить уведомление, когда тебя внесут в черный список
-            </p>
+
             <br>
             <div class="row">
                 <div class="col-md-2 col-md-offset-5">
