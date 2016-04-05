@@ -8,7 +8,13 @@
                 <div class="panel-heading">Регистрация через linkedin</div>
                 <div class="panel-body">
 
+                    <div class="col-md-12 text-center">
 
+
+                        <a class="btn btn-primary" href="{{ url('auth/linkedin') }}">Войти через Linkedin
+                            <i class="fa fa-btn fa-linkedin"></i>
+                        </a>
+                    </div>
 
 
 
