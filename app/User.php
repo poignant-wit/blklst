@@ -24,19 +24,17 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function roles(){
-//        return $this->belongsToMany(Role::class,'user_role');
-        return $this->hasOne(UserRole::class);
-    }
 
+
+    public function roles(){
+        return $this->belongsToMany(Role::class,'user_role');
+    }
     public function hasRole($role){
         if (is_string($role)){
-//            return $this->roles->contains('name', $role);
-            return $this->roles->role_id == Role::where('name', $role)->first()->id;
+            return $this->roles->contains('name', $role);
         }
         return (bool) $role->intersect($this->roles)->count();
     }
-
     public function assign($role){
         if (is_string($role)){
             return $this->roles()->save(Role::where('name', $role)->firstOrFail());
@@ -44,9 +42,11 @@ class User extends Authenticatable
         return $this->roles()->save($role);
     }
 
+
     public function commentsOwner(){
         return $this->hasMany(Comment::class, 'owner_id');
     }
+
 
     public function commentsTarget(){
         return $this->hasMany(Comment::class, 'target_id');
