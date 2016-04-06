@@ -86,9 +86,34 @@ class CandidateController extends Controller
 
     public function show($id){
 
+
+        $user = User::where('id', $id)
+            ->join('user_role', 'users.id', '=', 'user_role.user_id')
+//            ->where('role_id', '<>' ,Role::where('name', 'unconfirmed')->first()->id)
+            ->first();
+
+
+        if((Auth::check()) && ($id == Auth::user()->id)){
+
+            if(Auth::user()->hasRole('unconfirmed'))
+            {
+                return view('user.home')
+                    ->with('user', $user);
+            }else{
+                $comments = Comment::byTargetUser($user);
+                return view('user.home')
+                    ->with('user', $user)
+                    ->with('comments', $comments);
+            }
+        }
+
+
+
+
         $candidate = User::where('id', $id)
-//            ->join('user_role', 'users.id', '=', 'user_role.user_id')
+            ->join('user_role', 'users.id', '=', 'user_role.user_id')
 //            ->where('role_id', Role::where('name', 'admin')->first()->id)
+            ->where('role_id', '<>' ,Role::where('name', 'unconfirmed')->first()->id)
             ->first();
 
 

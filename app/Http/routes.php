@@ -27,18 +27,21 @@ Route::group(['middleware' => 'web'], function () {
        'uses' => 'HomeController@index',
        'as' => 'home',
     ]);
-    Route::get('register/confirm/{confirm_code}', 'Auth\AuthController@confirmEmail');
 
+    Route::get('register/confirm/{confirm_code}', 'Auth\AuthController@confirmEmail');
     Route::get('auth/{provider}', 'Auth\AuthController@redirectToProvider');
     Route::get('auth/{provider}/callback', 'Auth\AuthController@handleProviderCallback');
 
     Route::get('candidate/create', [
         'uses' => 'CandidateController@create',
         'as' => 'candidate.create',
+        'middleware' => ['auth', 'confirmed']
     ]);
+
     Route::post('candidate', [
         'uses' => 'CandidateController@store',
         'as' => 'candidate.store',
+        'middleware' => ['auth', 'confirmed']
     ]);
     Route::get('candidate/{id}', [
         'uses' => 'CandidateController@show',
@@ -52,7 +55,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('comment', [
         'uses' => 'CommentController@store',
         'as' => 'search.results',
-        'middleware' => 'auth'
+        'middleware' => ['auth', 'confirmed']
     ]);
 
 

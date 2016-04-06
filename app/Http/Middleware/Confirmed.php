@@ -3,27 +3,27 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class Confirmed
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
+     * @param null $guard
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::user()->hasRole('confirmed')) {
+        if ((!Auth::guard($guard)->guest()) && Auth::user()->hasRole('unconfirmed') ) {
             if ($request->ajax() || $request->wantsJson()) {
-                return response('Unconfirmed user.', 401);
+                return response('Unauthorized.', 401);
             } else {
-                return redirect()->guest('login');
+                return redirect()->guest('home');
             }
         }
-
-
         return $next($request);
     }
 }

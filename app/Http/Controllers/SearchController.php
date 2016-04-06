@@ -30,7 +30,8 @@ class SearchController extends Controller
         $s = $sub_query->toSql();
         $users = DB::table(DB::raw("($s) as a"))
             ->mergeBindings($sub_query)
-            ->where('role_id', '=', Role::where('name', 'candidate')->first()->id)
+            ->where('role_id', '<>', Role::where('name', 'unconfirmed')->first()->id)
+            ->where('role_id', '<>', Role::where('name', 'admin')->first()->id)
             ->get();
 
             return view('welcome')
