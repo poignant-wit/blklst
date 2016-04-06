@@ -18,9 +18,7 @@
 
 
     @can('show_comments')
-
     @if(isset($comments))
-
         <h3 class="text-center">Комментарии</h3>
 
         <div class="row">

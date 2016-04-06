@@ -75,6 +75,7 @@ class AuthController extends Controller
 
     /**
      * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function register(Request $request)
     {
@@ -86,6 +87,7 @@ class AuthController extends Controller
         $user->password = bcrypt($request->input('password'));
         $user->confirmation_code = str_random(30);
         $user->save();
+        $user->assign('unconfirmed');
 
         if ($link = $request->input('linkedin_link')) {
             DB::table('linkedin_links')->insert([
@@ -95,8 +97,8 @@ class AuthController extends Controller
         }
 
         Mail::send('auth.emails.confirm', ['user' => $user], function ($message) use ($user) {
-            $message->from('blklst.dev@gmail.com', 'Blclst service');
-            $message->to($user->email)->subject('Welcome to Blklst service');
+            $message->from('blklst.dev@gmail.com', 'BlackListOfficial.online service');
+            $message->to($user->email)->subject('Welcome to BlackListOfficial.online service');
         });
         return redirect()->route('home')
             ->with('info', 'Проверьте почту'); //TODO MESSAGES PAGE
@@ -116,7 +118,7 @@ class AuthController extends Controller
             $user->confirmed = 1;
             $user->confirmation_code = '';
             $user->save();
-            $user->assign('recruiter');
+            $user->assign('candidate');
             auth()->loginUsingid($user->id);
 
             return redirect()->route('home');
@@ -146,6 +148,9 @@ class AuthController extends Controller
 
         $credentials = $this->getCredentials($request);
 
+
+
+
         if (Auth::guard($this->getGuard())->attempt($credentials, $request->has('remember'))) {
 
             if (Auth::user()->hasRole('admin')) {
@@ -160,13 +165,21 @@ class AuthController extends Controller
             return $this->handleUserWasAuthenticated($request, $throttles);
         }
 
+
+
+
+
+//
 //        if (Auth::attempt([
-//            'email' => $request->input('email'),
-//            'password' => $request->input('password'),
+//            'email' => $credentials['email'],
+//            'password' => $credentials['password'],
 //            'confirmed' => 1
 //        ])) {
 //            return $this->handleUserWasAuthenticated($request, $throttles);
 //        }
+//
+//        dd($credentials);
+
 
         if ($throttles && !$lockedOut) {
             $this->incrementLoginAttempts($request);
@@ -214,7 +227,7 @@ class AuthController extends Controller
                 $user_new->email = $user->email;
                 $user_new->confirmed = 1;
                 $user_new->save();
-                $user_new->assign('recruiter');
+                $user_new->assign('candidate');
 
                 $user_new_social = new Social();
                 $user_new_social->social_id = $user->id;

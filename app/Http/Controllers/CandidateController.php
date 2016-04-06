@@ -44,6 +44,7 @@ class CandidateController extends Controller
         }
     }
 
+
     public function create(){
 
         $ratings = DB::table('ratings')->get();
@@ -86,9 +87,10 @@ class CandidateController extends Controller
     public function show($id){
 
         $candidate = User::where('id', $id)
-            ->join('user_role', 'users.id', '=', 'user_role.user_id')
-            ->where('role_id', Role::where('name', 'candidate')->first()->id)
+//            ->join('user_role', 'users.id', '=', 'user_role.user_id')
+//            ->where('role_id', Role::where('name', 'admin')->first()->id)
             ->first();
+
 
 
         if (isset($candidate)){

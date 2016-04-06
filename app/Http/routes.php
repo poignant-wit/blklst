@@ -10,6 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+//use \Auth;
 
 Route::group(['middleware' => ['web']], function () {
 
@@ -54,6 +55,25 @@ Route::group(['middleware' => 'web'], function () {
         'middleware' => 'auth'
     ]);
 
+
+
+
+    Route::get('home', function(){
+        if (Auth::check()){
+            $app = app();
+            $controller = $app->make('App\Http\Controllers\CandidateController');
+            return $controller->callAction('show', $parameters = [Auth::user()->id]);
+        }else{
+            return redirect()->route('home');
+        }
+    });
+
+
+
+
+
+//    admin
+//    routes
     Route::group(['prefix' => 'admin',
         'middleware' => 'auth'
     ], function(){
@@ -69,7 +89,6 @@ Route::group(['middleware' => 'web'], function () {
             'as' => 'admin.users',
         ]);
 
-
         Route::get('user/{id}', [
             'uses' => 'AdminController@user',
             'as' => 'admin.user',
@@ -80,7 +99,6 @@ Route::group(['middleware' => 'web'], function () {
             'uses' => 'AdminController@getTable',
             'as' => 'admin.comments',
         ]);
-
 
         Route::post('comment/change', [
             'uses' => 'AdminController@postCommentStatus',

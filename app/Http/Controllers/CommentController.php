@@ -11,6 +11,8 @@ use Auth;
 
 class CommentController extends Controller
 {
+
+
     public function store(Request $request){
 
         $comment = new Comment();
@@ -20,13 +22,10 @@ class CommentController extends Controller
         $comment->rating = $request->input('rating');
         $comment->status = CommentStatus::where('name', 'waiting')->first()->id;
         if ( $comment->save()){
-
             return redirect()->back();
         }
 
         return "ERROR";
-
-
 
 
     }

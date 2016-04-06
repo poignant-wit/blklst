@@ -69,6 +69,7 @@
                     <li><a href="{{ url('/login') }}">Вход</a></li>
                     <li><a href="{{ url('/register') }}">Регистрация</a></li>
                 @else
+                    <li><a href="{{ url('/home') }}">Моя страница</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             {{ Auth::user()->name }} <span class="caret"></span>
