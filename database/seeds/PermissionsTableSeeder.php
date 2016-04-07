@@ -22,5 +22,8 @@ class PermissionsTableSeeder extends Seeder
         DB::table('permissions')->insert([
             'name' => 'delete_comments',
         ]);
+        DB::table('permissions')->insert([
+            'name' => 'add_comments',
+        ]);
     }
 }

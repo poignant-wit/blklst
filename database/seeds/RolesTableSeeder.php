@@ -26,9 +26,5 @@ class RolesTableSeeder extends Seeder
             'label' => 'Recruiter of site',
         ]);
 
-        DB::table('roles')->insert([
-            'name' => 'unconfirmed',
-            'label' => 'Unconfirmed user',
-        ]);
     }
 }

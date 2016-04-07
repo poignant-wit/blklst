@@ -78,7 +78,7 @@ class CandidateController extends Controller
         $comment->save();
 
 
-        $user->assign(Role::where('name', 'candidate')->first());
+        $user->assign('candidate');
 
 
         return view('candidate.new')->with('info', 'Вы успешно добавили кандидата');
@@ -113,7 +113,7 @@ class CandidateController extends Controller
         $candidate = User::where('id', $id)
             ->join('user_role', 'users.id', '=', 'user_role.user_id')
 //            ->where('role_id', Role::where('name', 'admin')->first()->id)
-            ->where('role_id', '<>' ,Role::where('name', 'unconfirmed')->first()->id)
+//            ->where('role_id', '<>' ,Role::where('name', 'unconfirmed')->first()->id)
             ->first();
 
 

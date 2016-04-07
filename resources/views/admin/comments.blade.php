@@ -3,7 +3,6 @@
 @section('content')
 
 
-@if(isset($comments))
 
 
     <div class="container">
@@ -24,7 +23,7 @@
             <div id="waiting" class="tab-pane fade in active">
 
                 <div class="waiting_comments">
-                    @include('admin.table')
+                    @include('admin.comments-table')
                 </div>
 
             </div>
@@ -42,13 +41,6 @@
 
 
 
-
-
-
-
-
-
-@endif
 
 
 

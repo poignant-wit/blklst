@@ -29,6 +29,11 @@ class RolePermissionsTableSeeder extends Seeder
         ]);
 
         DB::table('role_permissions')->insert([
+            'role_id' => Role::where('name', 'admin')->first()->id,
+            'permission_id' => Permission::where('name', 'add_comments')->first()->id,
+        ]);
+
+        DB::table('role_permissions')->insert([
             'role_id' => Role::where('name', 'candidate')->first()->id,
             'permission_id' => Permission::where('name', 'show_comments')->first()->id,
         ]);
@@ -36,6 +41,11 @@ class RolePermissionsTableSeeder extends Seeder
         DB::table('role_permissions')->insert([
             'role_id' => Role::where('name', 'recruiter')->first()->id,
             'permission_id' => Permission::where('name', 'show_comments')->first()->id,
+        ]);
+
+        DB::table('role_permissions')->insert([
+            'role_id' => Role::where('name', 'recruiter')->first()->id,
+            'permission_id' => Permission::where('name', 'add_comments')->first()->id,
         ]);
 
 

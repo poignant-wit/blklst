@@ -20,22 +20,30 @@ class SearchController extends Controller
         return redirect()->back();
     }
 
-        $sub_query = DB::table('users')
-            ->where('email', 'LIKE', '%' . $query . '%')
-            ->orWhere('name', 'LIKE', '%' . $query . '%')
-            ->join('user_role', 'users.id', '=', 'user_role.user_id');
+
+        //search by part of word
+//        $sub_query = DB::table('users')
+//            ->where('email', 'LIKE', '%' . $query . '%')
+//            ->orWhere('name', 'LIKE', '%' . $query . '%')
+//            ->join('user_role', 'users.id', '=', 'user_role.user_id');
+//
+//        $s = $sub_query->toSql();
+//        $users = DB::table(DB::raw("($s) as a"))
+//            ->mergeBindings($sub_query)
+//            ->where('role_id', '<>', Role::where('name', 'admin')->first()->id)
+//            ->get();
 
 
+//       $users = DB::table('users')
+//            ->where('email',$query)
+//            ->orWhere('name',$query)
+//           ->get();
 
-        $s = $sub_query->toSql();
-        $users = DB::table(DB::raw("($s) as a"))
-            ->mergeBindings($sub_query)
-            ->where('role_id', '<>', Role::where('name', 'unconfirmed')->first()->id)
-            ->where('role_id', '<>', Role::where('name', 'admin')->first()->id)
-            ->get();
+//        $users = User::getByPartOfName($query);
+        $users = User::getByEmailOrPartOfName($query);
 
             return view('welcome')
                 ->with('users', $users);
-
     }
+
 }

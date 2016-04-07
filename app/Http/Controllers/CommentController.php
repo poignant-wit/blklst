@@ -22,10 +22,9 @@ class CommentController extends Controller
         $comment->rating = $request->input('rating');
         $comment->status = CommentStatus::where('name', 'waiting')->first()->id;
         if ( $comment->save()){
-            return redirect()->back();
+            return redirect()->back()->with('info', 'Комментарий добавлен, будет доствпен после модерации');
         }
-
-        return "ERROR";
+        return redirect()->back()->with('info_danger', 'Возникла ошибка');
 
 
     }

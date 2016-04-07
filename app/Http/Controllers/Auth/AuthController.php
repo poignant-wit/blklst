@@ -26,7 +26,7 @@ class AuthController extends Controller
 
     private $register_rules = [
         'name' => 'required|max:255',
-        'email' => 'required|email|max:255|unique:users',
+        'email' => 'required|email|max:255',
         'password' => 'required|min:6|confirmed',
     ];
 
@@ -79,15 +79,37 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
+
+
+
+
+
+
+
         $this->validateRequest($request, $this->register_rules);
 
-        $user = new User();
+
+        $user = null;
+        if($user = User::where('email', $request->input('email'))->first()){
+            if(!empty($user->password)) {
+                return redirect()->back()->with('info_danger', 'Пользователь с таким email уже зарегистрирован');
+            }
+
+        }else{
+            $user = new User();
+        }
+
+
+
+
+
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('password'));
         $user->confirmation_code = str_random(30);
         $user->save();
-        $user->assign('unconfirmed');
+        $user->assign('candidate');
+
 
         if ($link = $request->input('linkedin_link')) {
             DB::table('linkedin_links')->insert([
@@ -96,10 +118,12 @@ class AuthController extends Controller
             ]);
         }
 
-        Mail::send('auth.emails.confirm', ['user' => $user], function ($message) use ($user) {
-            $message->from('blklst.dev@gmail.com', 'BlackListOfficial.online service');
-            $message->to($user->email)->subject('Welcome to BlackListOfficial.online service');
-        });
+//        Mail::send('auth.emails.confirm', ['user' => $user], function ($message) use ($user) {
+//            $message->from('blklst.dev@gmail.com', 'BlackListOfficial.online service');
+//            $message->to($user->email)->subject('Welcome to BlackListOfficial.online service');
+//        });
+
+
         return redirect()->route('home')
             ->with('info', 'Проверьте почту'); //TODO MESSAGES PAGE
 
@@ -149,18 +173,16 @@ class AuthController extends Controller
         $credentials = $this->getCredentials($request);
 
 
-
-
         if (Auth::guard($this->getGuard())->attempt($credentials, $request->has('remember'))) {
 
-            if (Auth::user()->hasRole('admin')) {
-                return $this->handleUserWasAuthenticated($request, $throttles);
-            }
+//            if (Auth::user()->hasRole('admin')) {
+//                return $this->handleUserWasAuthenticated($request, $throttles);
+//            }
 
-            if (Auth::user()->confirmed == 0) {
-                return view('welcome')
-                    ->with('info_danger', 'Ваш аккаунт неактивирован, проверьте почту');
-            }
+//            if (Auth::user()->confirmed == 0) {
+//                return view('welcome')
+//                    ->with('info_danger', 'Ваш аккаунт неактивирован, проверьте почту');
+//            }
 
             return $this->handleUserWasAuthenticated($request, $throttles);
         }

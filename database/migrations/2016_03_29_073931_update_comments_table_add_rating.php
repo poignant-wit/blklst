@@ -13,7 +13,7 @@ class UpdateCommentsTableAddRating extends Migration
     public function up()
     {
         Schema::table('comments', function ($table) {
-            $table->integer('rating')->unsigned();
+            $table->integer('rating')->unsigned()->nullable();
 
             $table->foreign('rating')
                 ->references('id')

@@ -17,11 +17,13 @@ class Confirmed
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if ((!Auth::guard($guard)->guest()) && Auth::user()->hasRole('unconfirmed') ) {
+        if ((!Auth::guard($guard)->guest()) && Auth::user()->confirmed == 0 ) {
             if ($request->ajax() || $request->wantsJson()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect()->guest('home');
+                return redirect()->route('home')->with('info', 'Ваш профиль неактивирован');
+//                return view('welcome')->with('info', 'Ваш профиль неактивирован');
+//                dd("ERROR");
             }
         }
         return $next($request);

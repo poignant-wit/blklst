@@ -46,6 +46,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('candidate/{id}', [
         'uses' => 'CandidateController@show',
         'as' => 'candidate.show',
+        'middleware' => ['confirmed']
     ]);
     Route::get('search', [
         'uses' => 'SearchController@results',
@@ -62,7 +63,7 @@ Route::group(['middleware' => 'web'], function () {
 
 
     Route::get('home', function(){
-        if (Auth::check()){
+        if (Auth::check() && Auth::user()->confirmed == 1){
             $app = app();
             $controller = $app->make('App\Http\Controllers\CandidateController');
             return $controller->callAction('show', $parameters = [Auth::user()->id]);
@@ -108,6 +109,14 @@ Route::group(['middleware' => 'web'], function () {
             'as' => 'admin.comment.change',
         ]);
 
+        Route::post('user/change', [
+            'uses' => 'AdminController@postUserRole',
+            'as' => 'admin.user.change',
+        ]);
+
+        Route::post('test', function(){
+            return "WORKS";
+        });
 
 
 
