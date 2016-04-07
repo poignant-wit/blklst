@@ -118,10 +118,10 @@ class AuthController extends Controller
             ]);
         }
 
-//        Mail::send('auth.emails.confirm', ['user' => $user], function ($message) use ($user) {
-//            $message->from('blklst.dev@gmail.com', 'BlackListOfficial.online service');
-//            $message->to($user->email)->subject('Welcome to BlackListOfficial.online service');
-//        });
+        Mail::send('auth.emails.confirm', ['user' => $user], function ($message) use ($user) {
+            $message->from('blklst.dev@gmail.com', 'BlackListOfficial.online service');
+            $message->to($user->email)->subject('Welcome to BlackListOfficial.online service');
+        });
 
 
         return redirect()->route('home')
