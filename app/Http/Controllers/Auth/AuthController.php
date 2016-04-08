@@ -228,6 +228,7 @@ class AuthController extends Controller
     {
         $user = Socialite::driver('linkedin')->user();
 
+
         $state = $request->get('state');
         $request->session()->put('state',$state);
 
@@ -240,6 +241,8 @@ class AuthController extends Controller
 
         if (!empty($user_check)) {
             $user_auth = $user_check;
+            $user_auth->confirmed = 1;
+            $user_auth->save();
         } else {
             $user_same_social_id = Social::where('social_id', '=', $user->id)->where('provider', '=', $provider)->first();
 
