@@ -45,7 +45,10 @@ class User extends Authenticatable
     public function assign($role)
     {
         if (is_string($role)) {
-            if(!$userRole = $this->role){
+
+            $userRole = $this->role;
+            if($userRole == null){
+//                dd($userRole);
                 $userRole = new UserRole();
                 $userRole->user_id = $this->id;
             }

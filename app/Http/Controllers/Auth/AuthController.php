@@ -142,7 +142,7 @@ class AuthController extends Controller
             $user->confirmed = 1;
             $user->confirmation_code = '';
             $user->save();
-            $user->assign('candidate');
+//            $user->assign('candidate');
             auth()->loginUsingid($user->id);
 
             return redirect()->route('home');
