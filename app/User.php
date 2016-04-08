@@ -85,6 +85,7 @@ class User extends Authenticatable
     public static function getByEmailOrPartOfName($query){
         return self::where('email', $query)
             ->orWhere('name', 'LIKE', '%' . $query . '%')
+            ->orWhere('skype', $query)
             ->join('user_role', 'users.id', '=', 'user_role.user_id')
             ->get();
     }

@@ -198,6 +198,7 @@ class AdminController extends Controller
             ->join('user_role', 'users.id', '=', 'user_role.user_id')
             ->join('roles', 'role_id', '=', 'roles.id')
             ->where('users.email', '<>', 'admin@admin.com')
+            ->orderBy('users.name', 'desc')
             ->get();
 
         $current_page = ($page) ? $page : 1;
