@@ -39,6 +39,10 @@
             <br>
 
             @can('show_comments')
+
+
+
+
             <div class="row">
                 <div class="col-md-2 col-md-offset-5">
                     @foreach($users as $user)
@@ -47,11 +51,29 @@
                 </div>
             </div>
             @else
-                <h5 class="text-center">
-                    Кандидат существует<br>
-                    <br>
-                    <a href="{{url('/register')}}">Зарегистрируйся</a>, чтоб видеть комментарии
-                </h5>
+
+
+
+                @if(Auth::check())
+
+                    <h5 class="text-center">
+                        Кандидат существует<br>
+                        <br>
+                    </h5>
+
+
+                    @else
+
+
+                    <h5 class="text-center">
+                        Кандидат существует<br>
+                        <br>
+                        <a href="{{url('/register')}}">Зарегистрируйся</a>, чтоб видеть комментарии
+                    </h5>
+
+                    @endif
+
+
 
             @endcan
 

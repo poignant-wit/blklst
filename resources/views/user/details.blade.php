@@ -78,13 +78,29 @@
     @endif
     @else
 
-        <div class="text-center">
-            <h3>Комментарии</h3>
-            <br>
-            <h4>Комментарии доступны только зарегистрированным пользователям</h4>
-            <br>
-            <a class="btn btn-primary" href="{{url('register')}}">ЗАРЕГИСТРИРОВАТЬСЯ</a>
-        </div>
+        @if(Auth::check())
+
+            <div class="text-center">
+                <h3>Комментарии</h3>
+                <br>
+                <h4>У вас нет возможности видеть комментарии</h4>
+                <br>
+
+            </div>
+
+            @else
+
+            <div class="text-center">
+                <h3>Комментарии</h3>
+                <br>
+                <h4>Комментарии доступны только зарегистрированным пользователям</h4>
+                <br>
+                <a class="btn btn-primary" href="{{url('register')}}">ЗАРЕГИСТРИРОВАТЬСЯ</a>
+            </div>
+
+            @endif
+
+
 
 
 
